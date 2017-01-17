@@ -4,7 +4,7 @@ The Magento Feedback Company connector is a Magento®2 extension that fully inte
 
 ## Development by Magmodules
 
-We are a Dutch Magento® Only Agency dedicated to the development of extensions for Magento®1 and Magento®2. All our extensions are well coded by our own team and our support team is always there to help you out. 
+We are a Dutch Magento® Only Agency dedicated to the development of extensions for Magento® 1 and Magento® 2. All our extensions are well coded by our own team and our support team is always there to help you out. 
 
 [Visit Magmodules.eu](https://www.magmodules.eu/)
 
