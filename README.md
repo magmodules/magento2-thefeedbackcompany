@@ -18,7 +18,7 @@ Because of these changes and the benefits of reviews for Adwords, Google has giv
 
 [Visit The Feedback Company](https://feedbackcompany.nl/)
 
-### Links
+## Links
 
 [Knowledgebase](https://www.magmodules.eu/help/feedbackcompany-magento2)
 
