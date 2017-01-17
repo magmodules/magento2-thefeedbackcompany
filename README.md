@@ -1,6 +1,6 @@
 # The Feedback Company Connect
 
-The Magento Feedback Company connector is a Magento®2 extension that fully integrates your The Feedback Company data into your Magento®2 store, this allows quick and simple creation as well as management of reviews (inc. automated synchronization of older reviews and client details), manage your current reviews and fully automate review invitations all from your Magento®2 Back-end.
+The Magento Feedback Company connector is a Magento® 2 extension that fully integrates your The Feedback Company data into your Magento® 2 store, this allows quick and simple management of reviews (inc. automated synchronization of older reviews and client details), manage your current reviews and fully automate review invitations all from your Magento® 2 Back-end.
 
 ## Development by Magmodules
 
