@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -22,21 +22,22 @@ class Api
     const FBC_POST_URL = 'https://connect.feedbackcompany.nl/feedback/';
     const DEFAULT_TIMEOUT = 30;
 
-    protected $inv;
-    protected $rev;
-    protected $curl;
-    protected $logger;
-    protected $general;
-    protected $date;
+    private $inv;
+    private $rev;
+    private $curl;
+    private $logger;
+    private $general;
+    private $date;
 
     /**
      * Api constructor.
+     *
      * @param InvitationHelper $invHelper
-     * @param ReviewsHelper $revHelper
-     * @param GeneralHelper $generalHelper
-     * @param Curl $curl
-     * @param DateTime $dateTime
-     * @param LoggerInterface $logger
+     * @param ReviewsHelper    $revHelper
+     * @param GeneralHelper    $generalHelper
+     * @param Curl             $curl
+     * @param DateTime         $dateTime
+     * @param LoggerInterface  $logger
      */
     public function __construct(
         InvitationHelper $invHelper,
@@ -55,8 +56,10 @@ class Api
     }
 
     /**
-     * Post invitation function
+     * Post invitation function.
+     *
      * @param Order $order
+     *
      * @return bool|string
      */
     public function sendInvitation(Order $order)
@@ -102,6 +105,7 @@ class Api
     /**
      * @param $request
      * @param $config
+     *
      * @return bool|string
      */
     public function postInvitation($request, $config)
@@ -120,7 +124,7 @@ class Api
             $header_size = $curl->getInfo(CURLINFO_HEADER_SIZE);
             $body = substr($response, $header_size);
             if (!empty($config['debug'])) {
-                $debugMsg  = 'TheFeedbackCompany - sendInvitation #' . $request['orderNumber'] . ' ';
+                $debugMsg = 'TheFeedbackCompany - sendInvitation #' . $request['orderNumber'] . ' ';
                 $debugMsg .= '(status: ' . $responseCode . ', Body: ' . $body . ', Request: ' . $url . ')';
                 $this->logger->debug($debugMsg);
             }
@@ -129,7 +133,7 @@ class Api
             }
         } catch (\Exception $e) {
             if (!empty($config['debug'])) {
-                $debugMsg  = 'TheFeedbackCompany - sendInvitation #' . $request['orderNumber'] . ' ';
+                $debugMsg = 'TheFeedbackCompany - sendInvitation #' . $request['orderNumber'] . ' ';
                 $debugMsg .= '(Error: ' . $e . ', Request: ' . $url . ')';
                 $this->logger->debug($debugMsg);
             }
@@ -139,15 +143,17 @@ class Api
     }
 
     /**
-     * Get all review summary data
+     * Get all review summary data.
+     *
      * @param $type
+     *
      * @return array
      */
     public function getReviews($type)
     {
-        $oauth_data = $this->rev->getUniqueOauthData();
+        $oauthData = $this->rev->getUniqueOauthData();
         $result = [];
-        foreach ($oauth_data as $key => $data) {
+        foreach ($oauthData as $key => $data) {
             $review_data = $this->updateReviewStats($data);
             if ($review_data['status'] == 'token-error') {
                 $data['client_token'] = '';
@@ -161,8 +167,10 @@ class Api
     }
 
     /**
-     * Curl call for review summay data
+     * Curl call for review summay data.
+     *
      * @param $data
+     *
      * @return array|bool|mixed
      */
     public function updateReviewStats($data)
@@ -199,9 +207,9 @@ class Api
             }
             if (!empty($result['success'])) {
                 $result = [
-                    'status' => 'success',
+                    'status'         => 'success',
                     'review_summary' => $result['data'][0]['review_summary'],
-                    'shop' => $result['data'][0]['shop']
+                    'shop'           => $result['data'][0]['shop']
                 ];
 
                 return $result;
@@ -216,8 +224,10 @@ class Api
     }
 
     /**
-     * Retreive new client token
+     * Retreive new client token.
+     *
      * @param $data
+     *
      * @return bool
      */
     public function getNewClientToken($data)

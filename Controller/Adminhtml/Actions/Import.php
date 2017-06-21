@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -24,11 +24,12 @@ class Import extends Action
 
     /**
      * Import constructor.
-     * @param Context $context
-     * @param ApiModel $apiModel
+     *
+     * @param Context           $context
+     * @param ApiModel          $apiModel
      * @param TypeListInterface $cacheTypeList
-     * @param JsonFactory $resultJsonFactory
-     * @param ReviewsHelper $revHelper
+     * @param JsonFactory       $resultJsonFactory
+     * @param ReviewsHelper     $revHelper
      */
     public function __construct(
         Context $context,

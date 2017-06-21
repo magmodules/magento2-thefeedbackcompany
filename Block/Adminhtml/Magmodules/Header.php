@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -21,11 +21,12 @@ class Header extends Field
     const MODULE_SUPPORT_LINK = 'https://www.magmodules.eu/help/' . self::MODULE_CODE;
     const MODULE_CONTACT_LINK = 'https://www.magmodules.eu/support.html?ext=' . self::MODULE_CODE;
 
-    protected $general;
+    private $general;
     protected $_template = 'Magmodules_TheFeedbackCompany::system/config/fieldset/header.phtml';
 
     /**
      * Header constructor.
+     *
      * @param Context $context
      * @param GeneralHelper $general
      */
@@ -49,7 +50,8 @@ class Header extends Field
     }
 
     /**
-     * Image with extension and magento version
+     * Image with extension and magento version.
+     *
      * @return string
      */
     public function getImage()
@@ -61,7 +63,8 @@ class Header extends Field
     }
 
     /**
-     * Contact link for extension
+     * Contact link for extension.
+     *
      * @return string
      */
     public function getContactLink()
@@ -70,7 +73,8 @@ class Header extends Field
     }
 
     /**
-     * Support link for extension
+     * Support link for extension.
+     *
      * @return string
      */
     public function getSupportLink()

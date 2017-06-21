@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magmodules\TheFeedbackCompany\Block\Adminhtml\System\Config\Form;
 
 use Magento\Backend\Block\Template\Context;
@@ -13,14 +14,14 @@ use Magmodules\TheFeedbackCompany\Helper\Reviews as ReviewsHelper;
 class ImportButton extends Field
 {
 
-    protected $rev;
-    protected $request;
+    private $rev;
+    private $request;
     protected $_template = 'Magmodules_TheFeedbackCompany::system/config/button/button.phtml';
 
     /**
-     * @param Context $context
+     * @param Context       $context
      * @param ReviewsHelper $revHelper
-     * @param array $data
+     * @param array         $data
      */
     public function __construct(
         Context $context,
@@ -34,6 +35,7 @@ class ImportButton extends Field
 
     /**
      * @param AbstractElement $element
+     *
      * @return string
      */
     public function render(AbstractElement $element)
@@ -45,6 +47,7 @@ class ImportButton extends Field
 
     /**
      * @param AbstractElement $element
+     *
      * @return string
      */
     public function _getElementHtml(AbstractElement $element)
@@ -53,7 +56,8 @@ class ImportButton extends Field
     }
 
     /**
-     * Returns url for review import
+     * Returns url for review import.
+     *
      * @return string
      */
     public function getAjaxUrl()
@@ -68,7 +72,8 @@ class ImportButton extends Field
     }
 
     /**
-     * Get's last imported date to display as comment msg under button
+     * Last importdate to display as comment msg under button.
+     *
      * @return mixed
      */
     public function getLastImported()
@@ -94,6 +99,7 @@ class ImportButton extends Field
 
     /**
      * Checks if store/website view has all oauth data.
+     *
      * @return bool
      */
     public function checkOauthData()

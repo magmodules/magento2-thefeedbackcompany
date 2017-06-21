@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -14,11 +14,12 @@ use Magento\Backend\Block\Template\Context;
 class Version extends Field
 {
 
-    protected $general;
+    private $general;
 
     /**
      * Version constructor.
-     * @param Context $context
+     *
+     * @param Context       $context
      * @param GeneralHelper $general
      */
     public function __construct(
@@ -30,8 +31,10 @@ class Version extends Field
     }
 
     /**
-     * Version display in config
+     * Version display in config.
+     *
      * @param AbstractElement $element
+     *
      * @return string
      */
     public function render(AbstractElement $element)

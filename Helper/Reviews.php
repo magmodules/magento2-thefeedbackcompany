@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -25,21 +25,23 @@ class Reviews extends AbstractHelper
     const XML_PATH_REVIEWS_LAST_IMPORT = 'magmodules_thefeedbackcompany/reviews/last_import';
     const REVIEWS_URL = 'https://beoordelingen.feedbackcompany.nl/api/v1/review/all/';
 
-    protected $datetime;
-    protected $timezone;
-    protected $storeManager;
-    protected $general;
-    protected $config;
-    protected $cacheTypeList;
+    private $datetime;
+    private $timezone;
+    private $storeManager;
+    private $general;
+    private $config;
+    private $cacheTypeList;
 
     /**
      * Reviews constructor.
-     * @param Context $context
+     *
+     * @param Context               $context
      * @param StoreManagerInterface $storeManager
-     * @param DateTime $datetime
-     * @param TimezoneInterface $timezone
-     * @param General $generalHelper
-     * @param TypeListInterface $cacheTypeList
+     * @param DateTime              $datetime
+     * @param TimezoneInterface     $timezone
+     * @param General               $generalHelper
+     * @param TypeListInterface     $cacheTypeList
+     *
      * @internal param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
@@ -59,80 +61,89 @@ class Reviews extends AbstractHelper
     }
 
     /**
-     * Returns array of unique oauth data
+     * Returns array of unique oauth data.
+     *
      * @return array
      */
     public function getUniqueOauthData()
     {
-        $oauth_data = [];
+        $oauthData = [];
         $stores = $this->storeManager->getStores();
         foreach ($stores as $store) {
             if ($oauth = $this->getOauthData($store->getId())) {
-                $oauth_data[$oauth['client_id']] = $oauth;
+                $oauthData[$oauth['client_id']] = $oauth;
             }
         }
 
-        return $oauth_data;
-    }
-
-    public function getOauthData($storeId = 0, $websiteId = null)
-    {
-        $oauth_data = [];
-
-        if ($websiteId) {
-            $enabled = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_ENABLED, $websiteId);
-            $client_id = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_ID, $websiteId);
-            $client_secret = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_SECRET, $websiteId);
-            $client_token = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_TOKEN, $websiteId);
-        } else {
-            $enabled = $this->general->getStoreValue(self::XML_PATH_REVIEWS_ENABLED, $storeId);
-            $client_id = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_ID, $storeId);
-            $client_secret = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_SECRET, $storeId);
-            $client_token = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_TOKEN, $storeId);
-        }
-
-        if ($enabled && $client_id && $client_secret) {
-            $oauth_data = [
-                'store_id' => $storeId,
-                'client_id' => $client_id,
-                'client_secret' => $client_secret,
-                'client_token' => $client_token
-            ];
-        }
-
-        return $oauth_data;
+        return $oauthData;
     }
 
     /**
-     * Saves review result data a array by client_id
-     * @param $result
+     * @param int  $storeId
+     * @param null $websiteId
+     *
+     * @return array
+     */
+    public function getOauthData($storeId = 0, $websiteId = null)
+    {
+        $oauthData = [];
+
+        if ($websiteId) {
+            $enabled = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_ENABLED, $websiteId);
+            $clientId = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_ID, $websiteId);
+            $clientSecret = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_SECRET, $websiteId);
+            $clientToken = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_TOKEN, $websiteId);
+        } else {
+            $enabled = $this->general->getStoreValue(self::XML_PATH_REVIEWS_ENABLED, $storeId);
+            $clientId = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_ID, $storeId);
+            $clientSecret = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_SECRET, $storeId);
+            $clientToken = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_TOKEN, $storeId);
+        }
+
+        if ($enabled && $clientId && $clientSecret) {
+            $oauthData = [
+                'store_id'      => $storeId,
+                'client_id'     => $clientId,
+                'client_secret' => $clientSecret,
+                'client_token'  => $clientToken
+            ];
+        }
+
+        return $oauthData;
+    }
+
+    /**
+     * Saves review result data a array by client_id.
+     *
+     * @param        $result
      * @param string $type
+     *
      * @return array
      */
     public function saveReviewResult($result, $type = 'cron')
     {
-        $fbc_data = [];
+        $fbcData = [];
         foreach ($result as $key => $row) {
             $status = $row['status'];
             if ($status == 'success') {
-                $fbc_data[$key]['status'] = $status;
-                $fbc_data[$key]['type'] = $type;
-                $fbc_data[$key]['name'] = $row['shop']['name'];
-                $fbc_data[$key]['link'] = $row['shop']['review_url'];
-                $fbc_data[$key]['total_reviews'] = $row['review_summary']['total_merchant_reviews'];
-                $fbc_data[$key]['score'] = $row['review_summary']['merchant_score'];
-                $fbc_data[$key]['score_max'] = $row['review_summary']['max_score'];
-                $fbc_data[$key]['percentage'] = ($row['review_summary']['merchant_score'] * 10) . '%';
+                $fbcData[$key]['status'] = $status;
+                $fbcData[$key]['type'] = $type;
+                $fbcData[$key]['name'] = $row['shop']['name'];
+                $fbcData[$key]['link'] = $row['shop']['review_url'];
+                $fbcData[$key]['total_reviews'] = $row['review_summary']['total_merchant_reviews'];
+                $fbcData[$key]['score'] = number_format((float)$row['review_summary']['merchant_score'], 1, '.', '');
+                $fbcData[$key]['score_max'] = $row['review_summary']['max_score'];
+                $fbcData[$key]['percentage'] = ($row['review_summary']['merchant_score'] * 10) . '%';
             } else {
-                $fbc_data[$key]['status'] = $status;
-                $fbc_data[$key]['msg'] = $row['msg'];
+                $fbcData[$key]['status'] = $status;
+                $fbcData[$key]['msg'] = $row['msg'];
             }
         }
-        $update_msg = $this->datetime->gmtDate() . ' (' . $type . ').';
-        $this->general->setConfigData(json_encode($fbc_data), self::XML_PATH_REVIEWS_RESULT);
-        $this->general->setConfigData($update_msg, self::XML_PATH_REVIEWS_LAST_IMPORT);
+        $updateMsg = $this->datetime->gmtDate() . ' (' . $type . ').';
+        $this->general->setConfigData(json_encode($fbcData), self::XML_PATH_REVIEWS_RESULT);
+        $this->general->setConfigData($updateMsg, self::XML_PATH_REVIEWS_LAST_IMPORT);
 
-        return $fbc_data;
+        return $fbcData;
     }
 
     /**
@@ -150,9 +161,10 @@ class Reviews extends AbstractHelper
     }
 
     /**
-     * Save client token to config
-     * @param $token
-     * @param int $storeId
+     * Save client token to config.
+     *
+     * @param      $token
+     * @param int  $storeId
      * @param bool $flushCache
      */
     public function setClientToken($token, $storeId, $flushCache = true)
@@ -164,24 +176,26 @@ class Reviews extends AbstractHelper
     }
 
     /**
-     * Summay data getter for block usage
-     * @param int $storeId
+     * Summay data getter for block usage.
+     *
+     * @param int  $storeId
      * @param null $websiteId
+     *
      * @return mixed
      */
     public function getSummaryData($storeId = 0, $websiteId = null)
     {
         $data = $this->getAllSummaryData();
         if ($websiteId) {
-            $client_id = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_ID, $websiteId);
+            $clientId = $this->general->getWebsiteValue(self::XML_PATH_REVIEWS_CLIENT_ID, $websiteId);
         } else {
-            $client_id = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_ID, $storeId);
+            $clientId = $this->general->getStoreValue(self::XML_PATH_REVIEWS_CLIENT_ID, $storeId);
         }
 
-        if (!empty($client_id)) {
-            if (!empty($data[$client_id]['status'])) {
-                if ($data[$client_id]['status'] == 'success') {
-                    return $data[$client_id];
+        if (!empty($clientId)) {
+            if (!empty($data[$clientId]['status'])) {
+                if ($data[$clientId]['status'] == 'success') {
+                    return $data[$clientId];
                 }
             }
         }
@@ -190,7 +204,8 @@ class Reviews extends AbstractHelper
     }
 
     /**
-     * Array of all stored summay data
+     * Array of all stored summay data.
+     *
      * @return mixed
      */
     public function getAllSummaryData()
@@ -199,13 +214,14 @@ class Reviews extends AbstractHelper
     }
 
     /**
-     * Last imported date
+     * Last importdate.
+     *
      * @return mixed
      */
     public function getLastImported()
     {
-        $last_imported = $this->general->getStoreValue(self::XML_PATH_REVIEWS_LAST_IMPORT);
+        $lastImported = $this->general->getStoreValue(self::XML_PATH_REVIEWS_LAST_IMPORT);
 
-        return $last_imported;
+        return $lastImported;
     }
 }

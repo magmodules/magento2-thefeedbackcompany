@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magmodules\TheFeedbackCompany\Block\Adminhtml\System\Config\Form;
 
 use Magento\Backend\Block\Template\Context;
@@ -13,14 +14,14 @@ use Magmodules\TheFeedbackCompany\Helper\Reviews as ReviewsHelper;
 class ReviewSummary extends Field
 {
 
-    protected $rev;
-    protected $request;
     protected $_template = 'Magmodules_TheFeedbackCompany::system/config/fieldset/summary.phtml';
+    private $rev;
+    private $request;
 
     /**
-     * @param Context $context
+     * @param Context       $context
      * @param ReviewsHelper $revHelper
-     * @param array $data
+     * @param array         $data
      */
     public function __construct(
         Context $context,
@@ -33,7 +34,8 @@ class ReviewSummary extends Field
     }
 
     /**
-     * Get review summary data from helper
+     * Get review summary data from helper.
+     *
      * @return bool
      */
     public function getReviewSummary()
@@ -55,6 +57,7 @@ class ReviewSummary extends Field
 
     /**
      * @param AbstractElement $element
+     *
      * @return bool
      */
     public function render(AbstractElement $element)
@@ -66,6 +69,7 @@ class ReviewSummary extends Field
 
     /**
      * @param AbstractElement $element
+     *
      * @return bool
      */
     protected function _getElementHtml(AbstractElement $element)

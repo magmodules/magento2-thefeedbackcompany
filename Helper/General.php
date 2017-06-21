@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -21,20 +21,21 @@ class General extends AbstractHelper
     const MODULE_CODE = 'Magmodules_TheFeedbackCompany';
     const XML_PATH_EXTENSION_ENABLED = 'magmodules_thefeedbackcompany/general/enabled';
 
-    protected $moduleList;
-    protected $metadata;
-    protected $storeManager;
-    protected $objectManager;
-    protected $config;
+    private $moduleList;
+    private $metadata;
+    private $storeManager;
+    private $objectManager;
+    private $config;
 
     /**
      * General constructor.
-     * @param Context $context
-     * @param ObjectManagerInterface $objectManager
-     * @param StoreManagerInterface $storeManager
-     * @param ModuleListInterface $moduleList
+     *
+     * @param Context                  $context
+     * @param ObjectManagerInterface   $objectManager
+     * @param StoreManagerInterface    $storeManager
+     * @param ModuleListInterface      $moduleList
      * @param ProductMetadataInterface $metadata
-     * @param Config $config
+     * @param Config                   $config
      */
     public function __construct(
         Context $context,
@@ -53,7 +54,8 @@ class General extends AbstractHelper
     }
 
     /**
-     * General check if Extension is enabled
+     * General check if Extension is enabled.
+     *
      * @return mixed
      */
     public function getEnabled()
@@ -62,9 +64,11 @@ class General extends AbstractHelper
     }
 
     /**
-     * Get Configuration data
-     * @param $path
+     * Get Configuration data.
+     *
+     * @param          $path
      * @param int|null $storeId
+     *
      * @return mixed
      * @internal param $scope
      */
@@ -80,6 +84,7 @@ class General extends AbstractHelper
     /**
      * @param $path
      * @param $websiteId
+     *
      * @return mixed
      */
     public function getWebsiteValue($path, $websiteId)
@@ -88,9 +93,10 @@ class General extends AbstractHelper
     }
 
     /**
-     * Set configuration data function
-     * @param $value
-     * @param $key
+     * Set configuration data function.
+     *
+     * @param      $value
+     * @param      $key
      * @param null $storeId
      */
     public function setConfigData($value, $key, $storeId = null)
@@ -103,9 +109,11 @@ class General extends AbstractHelper
     }
 
     /**
-     * Create error response array for usage in config (manual import)
-     * @param $msg
+     * Create error response array for usage in config (manual import).
+     *
+     * @param        $msg
      * @param string $status
+     *
      * @return array
      */
     public function createResponseError($msg, $status = 'error')
@@ -116,7 +124,8 @@ class General extends AbstractHelper
     }
 
     /**
-     * Returns current version of the extension
+     * Returns current version of the extension.
+     *
      * @return mixed
      */
     public function getExtensionVersion()
@@ -127,7 +136,8 @@ class General extends AbstractHelper
     }
 
     /**
-     * Returns current version of Magento
+     * Returns current version of Magento.
+     *
      * @return string
      */
     public function getMagentoVersion()

@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 namespace Magmodules\TheFeedbackCompany\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
@@ -16,6 +17,7 @@ class OrderSave implements ObserverInterface
 
     /**
      * OrderSave constructor.
+     *
      * @param ApiModel $apiModel
      */
     public function __construct(
