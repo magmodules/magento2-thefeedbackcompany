@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
+ * Copyright © 2017 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -17,18 +17,20 @@ use Magento\Framework\Data\Collection\AbstractDb;
 
 class ClientId extends Value
 {
+
     protected $rev;
 
     /**
      * ClientId constructor.
-     * @param Context $context
-     * @param Registry $registry
-     * @param ScopeConfigInterface $config
-     * @param TypeListInterface $cacheTypeList
-     * @param ReviewsHelper $revHelper
+     *
+     * @param Context               $context
+     * @param Registry              $registry
+     * @param ScopeConfigInterface  $config
+     * @param TypeListInterface     $cacheTypeList
+     * @param ReviewsHelper         $revHelper
      * @param AbstractResource|null $resource
-     * @param AbstractDb|null $resourceCollection
-     * @param array $data
+     * @param AbstractDb|null       $resourceCollection
+     * @param array                 $data
      */
     public function __construct(
         Context $context,
@@ -45,7 +47,7 @@ class ClientId extends Value
     }
 
     /**
-     * If Client ID has changed, reset al tokens
+     * If Client ID has changed, reset all tokens.
      */
     public function beforeSave()
     {

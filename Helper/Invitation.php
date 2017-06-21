@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -27,18 +27,19 @@ class Invitation extends AbstractHelper
     const XML_PATH_INVITATION_PREVIEWS = 'magmodules_thefeedbackcompany/invitation/product_reviews';
     const XML_PATH_INVITATION_DEBUG = 'magmodules_thefeedbackcompany/invitation/debug';
 
-    protected $productRepository;
-    protected $imgHelper;
-    protected $general;
-    protected $storeManager;
+    private $productRepository;
+    private $imgHelper;
+    private $general;
+    private $storeManager;
 
     /**
      * Invitation constructor.
-     * @param Context $context
-     * @param ProductRepository $productRepository
+     *
+     * @param Context               $context
+     * @param ProductRepository     $productRepository
      * @param StoreManagerInterface $storeManager
-     * @param Image $imgHelper
-     * @param General $generalHelper
+     * @param Image                 $imgHelper
+     * @param General               $generalHelper
      */
     public function __construct(
         Context $context,
@@ -55,8 +56,10 @@ class Invitation extends AbstractHelper
     }
 
     /**
-     * Create array of invitation config data
+     * Create array of invitation config data.
+     *
      * @param $storeId
+     *
      * @return array|bool
      */
     public function getConfigData($storeId)
@@ -83,8 +86,10 @@ class Invitation extends AbstractHelper
     }
 
     /**
-     * Check if Invitation is enabled on store level
+     * Check if Invitation is enabled on store level.
+     *
      * @param $storeId
+     *
      * @return bool|mixed
      */
     public function getEnabledInvitation($storeId)
@@ -97,7 +102,8 @@ class Invitation extends AbstractHelper
     }
 
     /**
-     * Check if extension is enabled
+     * Check if extension is enabled.
+     *
      * @return mixed
      */
     public function getEnabled()
@@ -106,45 +112,49 @@ class Invitation extends AbstractHelper
     }
 
     /**
-     * Create checksum of email string
+     * Create checksum of email string.
+     *
      * @param $email
+     *
      * @return int
      */
     public function getChecksum($email)
     {
-        $check_sum = 0;
-        $email_lenght = strlen($email);
-        for ($i = 0; $email_lenght > $i; $i++) {
-            $check_sum += ord($email[$i]);
+        $checkSum = 0;
+        $emailLenght = strlen($email);
+        for ($i = 0; $emailLenght > $i; $i++) {
+            $checkSum += ord($email[$i]);
         }
 
-        return $check_sum;
+        return $checkSum;
     }
 
     /**
-     * Create product data array
+     * Create product data array.
+     *
      * @param $products
      * @param $storeId
+     *
      * @return array
      * @internal param $product_reviews
      */
     public function getProductData($products, $storeId)
     {
         $i = 1;
-        $product_data = [];
+        $productData = [];
         foreach ($products as $item) {
             $this->storeManager->setCurrentStore($storeId);
             $product = $this->productRepository->getById($item->getProductId());
-            $product_data['filtercode'][] = trim($product->getSku());
+            $productData['filtercode'][] = trim($product->getSku());
             if ($product->getStatus() == '1') {
                 $img = $this->imgHelper->init($product, 'product_thumbnail_image')->getUrl();
-                $product_data['product_url[' . $i . ']'] = $product->getProductUrl();
-                $product_data['product_text[' . $i . ']'] = $item->getName();
-                $product_data['product_ids[' . $i . ']'] = 'SKU=' . $product->getSku();
-                $product_data['product_photo[' . $i . ']'] = $img;
+                $productData['product_url[' . $i . ']'] = $product->getProductUrl();
+                $productData['product_text[' . $i . ']'] = $item->getName();
+                $productData['product_ids[' . $i . ']'] = 'SKU=' . $product->getSku();
+                $productData['product_photo[' . $i . ']'] = $img;
             }
         }
 
-        return $product_data;
+        return $productData;
     }
 }

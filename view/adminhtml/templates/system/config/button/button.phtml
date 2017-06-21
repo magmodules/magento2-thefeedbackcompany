@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -13,20 +13,20 @@
     require([
         'jquery',
         'prototype'
-    ], function(jQuery){
+    ], function (jQuery) {
         var resultSpan = jQuery('#result');
         jQuery('#import_button').click(function () {
             var params = {};
             new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
-                parameters:     params,
-                loaderArea:     false,
-                asynchronous:   true,
-                onCreate: function() {
+                parameters: params,
+                loaderArea: false,
+                asynchronous: true,
+                onCreate: function () {
                     resultSpan.find('.connecting').show();
                     jQuery('#stats_result').text('');
                     jQuery('#button-fbc-note').text('');
                 },
-                onSuccess: function(response) {
+                onSuccess: function (response) {
                     console.log(response);
                     resultSpan.find('.connecting').hide();
                     var resultText = '';
@@ -45,5 +45,5 @@
 
     });
 </script>
-<?php echo $block->getButtonHtml() ?> 
+<?php echo $block->getButtonHtml() ?>
 <p class="note" id="button-fbc-note"><span><?php echo __('Last import: ') . $block->getLastImported() ?></span></p>

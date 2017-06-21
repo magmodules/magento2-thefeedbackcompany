@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -16,6 +16,7 @@ class Status implements ArrayInterface
 
     /**
      * Status constructor.
+     *
      * @param Config $orderConfig
      */
     public function __construct(Config $orderConfig)
@@ -25,6 +26,7 @@ class Status implements ArrayInterface
 
     /**
      * Get order statuses array
+     *
      * @return array
      */
     public function toOptionArray()

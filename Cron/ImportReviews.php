@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -15,6 +15,7 @@ class ImportReviews
 
     /**
      * ImportReviews constructor.
+     *
      * @param ApiModel $apiModel
      */
     public function __construct(ApiModel $apiModel)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2016 Magmodules.eu. All rights reserved.
+ * Copyright © 2017 Magmodules.eu. All rights reserved.
  * See COPYING.txt for license details.
  */
 
@@ -42,7 +42,8 @@ class Summary extends Template implements BlockInterface
     }
 
     /**
-     * Rich Snippets check
+     * Rich Snippets check.
+     *
      * @return mixed
      */
     public function getRichSnippets()
@@ -51,7 +52,8 @@ class Summary extends Template implements BlockInterface
     }
 
     /**
-     * Get summary data from review helper by storeId
+     * Get summary data from review helper by storeId.
+     *
      * @return array
      */
     public function getSummaryData()
