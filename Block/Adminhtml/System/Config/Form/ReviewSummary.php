@@ -14,8 +14,19 @@ use Magmodules\TheFeedbackCompany\Helper\Reviews as ReviewsHelper;
 class ReviewSummary extends Field
 {
 
+    /**
+     * @var string
+     */
     protected $_template = 'Magmodules_TheFeedbackCompany::system/config/fieldset/summary.phtml';
+
+    /**
+     * @var ReviewsHelper
+     */
     private $rev;
+
+    /**
+     * @var \Magento\Framework\App\RequestInterface
+     */
     private $request;
 
     /**
