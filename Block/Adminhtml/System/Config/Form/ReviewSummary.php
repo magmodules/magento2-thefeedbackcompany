@@ -45,6 +45,14 @@ class ReviewSummary extends Field
     }
 
     /**
+     * @return null
+     */
+    public function getCacheLifetime()
+    {
+        return null;
+    }
+
+    /**
      * Get review summary data from helper.
      *
      * @return bool
