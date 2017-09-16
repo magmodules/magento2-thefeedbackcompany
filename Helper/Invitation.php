@@ -151,10 +151,8 @@ class Invitation extends AbstractHelper
         $productData = [];
         foreach ($products as $item) {
             $this->storeManager->setCurrentStore($storeId);
+            /** @var \Magento\Catalog\Model\Product $product */
             $product = $this->productFactory->create()->setStoreId($storeId)->load($item->getProductId());
-
-            $this->general->addTolog('P', $product->getData());
-
             $productData['filtercode'][] = trim($product->getSku());
             if ($product->getStatus() == '1') {
                 $productData['product_url[' . $i . ']'] = $product->getProductUrl();
