@@ -17,7 +17,7 @@ class Summary extends Template implements BlockInterface
     /**
      * @var ReviewsHelper
      */
-    protected $rev;
+    public $rev;
 
     /**
      * Summary constructor.
@@ -37,7 +37,7 @@ class Summary extends Template implements BlockInterface
     /**
      * constructor
      */
-    protected function _construct()
+    public function _construct()
     {
         $template = $this->getData('template');
         parent::_construct();

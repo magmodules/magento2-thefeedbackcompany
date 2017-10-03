@@ -14,7 +14,6 @@ use Magento\Store\Model\ScopeInterface;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\Module\ModuleListInterface;
 use Magento\Framework\App\ProductMetadataInterface;
-use Magmodules\TheFeedbackCompany\Logger\FeedbackHandler;
 use Magmodules\TheFeedbackCompany\Logger\FeedbackLogger;
 
 class General extends AbstractHelper
@@ -182,5 +181,4 @@ class General extends AbstractHelper
     {
         $this->logger->add($id, $data);
     }
-
 }

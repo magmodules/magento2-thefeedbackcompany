@@ -183,4 +183,25 @@ class Invitation extends AbstractHelper
         return '';
     }
 
+    /**
+     * @param \Magento\Sales\Model\Order $order
+     *
+     * @return mixed
+     */
+    public function getCustomerName($order)
+    {
+        if ($order->getCustomerId()) {
+            return $order->getCustomerName();
+        }
+
+        $firstname = $order->getBillingAddress()->getFirstname();
+        $middlename = $order->getBillingAddress()->getMiddlename();
+        $lastname = $order->getBillingAddress()->getLastname();
+
+        if (!empty($middlename)) {
+            return $firstname . ' ' . $middlename . ' ' . $lastname;
+        } else {
+            return $firstname . ' ' . $lastname;
+        }
+    }
 }

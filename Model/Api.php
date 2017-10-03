@@ -72,7 +72,7 @@ class Api
     /**
      * Post invitation function.
      *
-     * @param Order $order
+     * @param \Magento\Sales\Model\Order $order
      *
      * @return bool|string
      */
@@ -100,7 +100,7 @@ class Api
         $request['resendIfDouble'] = $config['resend'];
         $request['remindDelay'] = $config['remind_delay'];
         $request['delay'] = $config['delay'];
-        $request['aanhef'] = $order->getCustomerName();
+        $request['aanhef'] = $this->inv->getCustomerName($order);
         $request['user'] = $order->getCustomerEmail();
         $request['connector'] = $config['connector'];
 
@@ -174,12 +174,12 @@ class Api
         $oauthData = $this->rev->getUniqueOauthData();
         $result = [];
         foreach ($oauthData as $key => $data) {
-            $review_data = $this->updateReviewStats($data);
-            if ($review_data['status'] == 'token-error') {
+            $reviewData = $this->updateReviewStats($data);
+            if ($reviewData['status'] == 'token-error') {
                 $data['client_token'] = '';
-                $review_data = $this->updateReviewStats($data);
+                $reviewData = $this->updateReviewStats($data);
             }
-            $result[$key] = $review_data;
+            $result[$key] = $reviewData;
         }
         $result = $this->rev->saveReviewResult($result, $type);
 
@@ -199,7 +199,6 @@ class Api
             $data['client_token'] = $this->getNewClientToken($data);
             if (empty($data['client_token'])) {
                 $msg = __('Could not fetch new client token');
-
                 return $this->general->createResponseError($msg);
             } else {
                 $this->rev->setClientToken($data['client_token'], $data['store_id']);
